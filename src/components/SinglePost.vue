@@ -1,20 +1,12 @@
-
 <template>
-    <div class="container">
-      <div class="row">
-          <router-link :to="{name:'Detail',params:{id:post.id}}">
-            <h4>{{post.title}}</h4>
-          </router-link>
-        <p>{{cutPostBody}}</p>
-        <div>
-           <div v-for="tag in post.tags" :key="tag" class="pill">
-          <router-link :to="{name:'Tag',params:{tag}}"> {{tag}}</router-link>
-        </div>
-        </div>
-      </div>
-    </div>
    <div class="post">
-      
+        <router-link :to="{name:'Detail',params:{id:post.id}}">
+            <h2>{{post.title}}</h2>
+        </router-link>
+        <p>{{cutPostBody}}</p>
+        <div v-for="tag in post.tags" :key="tag" class="pill">
+          <router-link :to="{name:'Tag',params:{tag}}">{{tag}}</router-link>
+        </div>
    </div>
 </template>
 

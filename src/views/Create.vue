@@ -1,53 +1,27 @@
-
 <template>
-  <!-- <form >
+  <form @submit.prevent="addPost">
     <label>Title</label>
-    <input type="text" >
+    <input type="text" required v-model="title">
 
     <label>Body</label>
-    <textarea ></textarea>
+    <textarea required v-model="body"></textarea>
 
     <label>Tags(hit enter to add a tag)</label>
-    <input type="text" >
-    
-    <button>add post</button>
-  </form> -->
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <legend class="fs-3 fw-bold mt-5">Create Post</legend>
-           <form @submit.prevent="addPost">
-              <div class="col-md-12 mb-3">
-                <label class="form-label">Title</label>
-                <input type="text" class="form-control" required v-model="title">
-              </div>
-              <div class="col-md-12 mb-3">
-                <label class="form-label">Tags(hit enter to add a tag)</label>
-                <input type="text" class="form-control" v-model="tag"  @keydown.enter.prevent="handleKeydown">
-                <div v-for="tag in tags" :key="tag" class="pill">
-                {{tag}}
-              </div>
-              </div>
-              <div class="mb-3 col-md-12">
-                <label class="form-label">Body</label>
-                <textarea class="form-control" rerquied v-model="body" rows="2"></textarea>
-              </div>
-               <button class="btn btn-primary">Add Post</button>
-         </form>
-      </div>
-      <div class="col-md-2"></div>
+    <input type="text" v-model="tag"  @keydown.enter.prevent="handleKeydown">
+    <div v-for="tag in tags" :key="tag" class="pill">
+      {{tag}}
     </div>
-  </div>
+    <button>add post</button>
+  </form>
 </template>
 
 <script>
 import { ref } from 'vue'
-import { useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 export default {
   setup(){
-    let router =useRouter();
+    let router=useRouter(); //this.$router
+    
     let title=ref("");//title
     let body=ref("");//body
     let tag=ref("");//html
@@ -72,7 +46,8 @@ export default {
             }
           )
         })
-        router.push('/');
+        // redirect user to home page
+        router.push("/");
     }
     return {title,body,tag,handleKeydown,tags,addPost}
   }
@@ -80,7 +55,7 @@ export default {
 </script>
 
 <style>
-  /* form {
+  form {
     max-width: 480px;
     margin: 0 auto;
     text-align: left;
@@ -133,5 +108,5 @@ export default {
     padding: 8px;
     border-radius: 20px;
     font-size: 14px;
-  } */
+  }
 </style>

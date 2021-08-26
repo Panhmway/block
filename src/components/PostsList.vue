@@ -1,23 +1,20 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <legend class="mt-4 m-auto fw-bolder fs-3 mb-4">Posts List</legend>
-        <div v-for="post in posts" :key="post.id">
-          <SinglePost :post="post"> </SinglePost>
-        </div>
-    </div>
+  <h1>Post lists</h1>
+  <div v-for="post in posts" :key="post.id">
+    <SinglePost :post="post"></SinglePost>
   </div>
-
 </template>
 
 <script>
-import SinglePost from './SinglePost.vue'
+import SinglePost from './SinglePost'
 export default {
-    components:{SinglePost},
+  components: { SinglePost },
     props:["posts"],
     setup(props){
-        
+      
     }
+   
+   
 }
 </script>
 

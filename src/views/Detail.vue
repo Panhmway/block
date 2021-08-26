@@ -1,35 +1,25 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <legend class="fs-3 fw-bolder mt-5 mt-4 ms-5 text-primary text-center">Post Details</legend>
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-         <div v-if="post" class="ms-5 mt-4">
-            <h2>{{post.title}}</h2>
-            <p>{{post.body}}</p>
-              <div v-for="tag in post.tags" :key="tag" class="pill">
-          {{tag}}
-        </div>
-            <button class="btn btn-info float-end"><router-link :to="{name:'Home'}">Back</router-link></button>
-          </div>
-          <div v-else>
-            <Spinner></Spinner>
-          </div>
-          </div>
-      <div class="col-md-3"></div>
-     
-    </div>
+
+  <div v-if="post" class="post">
+    <h2>{{post.title}}</h2>
+    <p>{{post.body}}</p>
+  </div>
+  <div v-else>
+    <Spinner></Spinner>
   </div>
 </template>
 
 <script>
 import Spinner from '../components/Spinner'
 import getPost from "../composables/getPost"
+import {useRoute} from "vue-router"
 export default {
   components: { Spinner },
-  props:["id"],
+  props:["id"],//this.$route.parmas.id
   setup(props){
-    let {post,error,load}=getPost(props.id);//{post,error,load}
+    let route=useRoute();// this.$route
+    // console.log(route.params.id);
+    let {post,error,load}=getPost(route.params.id);//{post,error,load}
     load();
     return{post,error}
   }
@@ -37,4 +27,38 @@ export default {
 </script>
 
 <style>
+  .post {
+    margin: 0 40px 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px dashed #e7e7e7;
+  }
+  .post h2 {
+    display: inline-block;
+    position: relative;
+    font-size: 26px;
+    color: white;
+    margin-bottom: 10px;
+    max-width: 400px;
+  }
+  .post h2::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #ff8800;
+    position: absolute;
+    z-index: -1;
+    padding-right: 40px;
+    left: -30px;
+    transform: rotateZ(-1deg);
+  }
+  .pill {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    color: #444;
+    background: #ddd;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
 </style>
